@@ -24,6 +24,7 @@ def upload_chunk():
         print(f"🎉 Fichier complet reconstitué : {filepath}")
 
     return "OK\n"
+port = int(os.environ.get("PORT", 8080))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=port)
