@@ -16,7 +16,7 @@ def upload_chunk():
     filename = request.args.get("filename", datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ".jpg")
 
     # Logs
-    print(f"🔍 Receiving chunk {part}/{total} for file {file_name}")
+    print(f"🔍 Receiving chunk {part}/{total} for file {filename}")
     print(f"🔍 Chunk size: {len(request.data)} bytes")
     print(f"🔍 Total size: {total} chunks")
     print(f"🔍 Part: {part}")
