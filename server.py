@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask import send_from_directory
 import os
 from datetime import datetime
 
@@ -35,3 +36,13 @@ def upload_chunk():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     app.run(host="0.0.0.0", port=port)
+
+
+@app.route("/files")
+def list_files():
+    files = os.listdir(UPLOAD_FOLDER)
+    return "<br>".join([f'<a href="/uploads/{f}">{f}</a>' for f in files])
+
+@app.route("/uploads/<path:filename>")
+def download_file(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
