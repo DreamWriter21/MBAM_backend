@@ -62,7 +62,7 @@ def list_files():
             .card { background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); padding: 10px; text-align: center; }
             img { width: 100%; border-radius: 6px; }
             a { text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 5px; }
-            .title { font-size: 0.8em; font-weight: normal; color: #666; }
+            .title { font-size: 0.6em; font-weight: normal; color: #666; }
         </style>
         <!-- Auto-refresh toutes les 30 secondes -->
         <meta http-equiv="refresh" content="30">
