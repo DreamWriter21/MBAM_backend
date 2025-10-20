@@ -59,6 +59,8 @@ def list_files():
             img { width: 100%; border-radius: 6px; }
             a { text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 5px; }
         </style>
+        <!-- Auto-refresh toutes les 30 secondes -->
+        <meta http-equiv="refresh" content="30">
     </head>
     <body>
         <h1>📸 Galerie d’images reçues</h1>
