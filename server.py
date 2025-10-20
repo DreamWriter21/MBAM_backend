@@ -45,6 +45,10 @@ def upload_chunk():
 @app.route("/files")
 def list_files():
     files = [f for f in os.listdir(UPLOAD_FOLDER) if f.lower().endswith((".jpg", ".jpeg", ".png"))]
+    
+     # Trier par date de modification décroissante
+    files.sort(key=lambda f: os.path.getmtime(os.path.join(UPLOAD_FOLDER, f)), reverse=True)
+    
     html = """
     <!DOCTYPE html>
     <html lang="fr">
@@ -58,6 +62,7 @@ def list_files():
             .card { background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); padding: 10px; text-align: center; }
             img { width: 100%; border-radius: 6px; }
             a { text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 5px; }
+            .title { font-size: 0.8em; font-weight: normal; color: #666; }
         </style>
         <!-- Auto-refresh toutes les 30 secondes -->
         <meta http-equiv="refresh" content="30">
@@ -69,7 +74,7 @@ def list_files():
             <div class="card">
                 <a href="/uploads/{{ f }}" target="_blank">
                     <img src="{{ url_for('static', filename=f) }}" alt="{{ f }}">
-                    {{ f }}
+                    <span class="title">{{ f }}</span>
                 </a>
             </div>
             {% endfor %}
