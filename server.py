@@ -25,7 +25,8 @@ def upload_chunk():
     print(f"🔍 Request method: {request.method}")
     print(f"🔍 Request url: {request.url}")
 
-    with open(os.path.join(UPLOAD_FOLDER, filename), "ab") as f:
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    with open(filepath, "ab") as f:
         f.write(request.data)
 
     print(f"✅ Chunk {part}/{total} reçu ({len(request.data)} bytes)")
