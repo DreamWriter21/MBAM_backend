@@ -3,7 +3,7 @@ from flask import send_from_directory
 import os
 from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="uploads")
 
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -66,7 +66,7 @@ def list_files():
             {% for f in files %}
             <div class="card">
                 <a href="/uploads/{{ f }}" target="_blank">
-                    <img src="/uploads/{{ f }}" alt="{{ f }}">
+                    <img src="{{ url_for('static', filename=f) }}" alt="{{ f }}">
                     {{ f }}
                 </a>
             </div>
