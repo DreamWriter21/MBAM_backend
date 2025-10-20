@@ -13,7 +13,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 def upload_chunk():
     part = int(request.args.get("part", 1))
     total = int(request.args.get("total", 1))
-    filename = request.args.get("filename", datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ".jpg")
+    filename = datetime.now().strftime("%Y-%m-%d %H:%M:%S") + request.args.get("filename", "Photo_MBAM")
 
     # Logs
     print(f"🔍 Receiving chunk {part}/{total} for file {filename}")
