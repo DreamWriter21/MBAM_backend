@@ -36,7 +36,7 @@ def upload_chunk():
         new_filepath = os.path.join(UPLOAD_FOLDER, new_filename)
         os.rename(filepath, new_filepath)
         
-        print(f"🎉 Fichier complet reconstitué : {filename}")
+        print(f"🎉 Fichier complet reconstitué : {new_filename}")
         
 
     return "OK\n"
