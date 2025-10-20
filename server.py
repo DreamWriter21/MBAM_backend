@@ -13,7 +13,8 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 def upload_chunk():
     part = int(request.args.get("part", 1))
     total = int(request.args.get("total", 1))
-    filename = datetime.now().strftime("%Y-%m-%d %H:%M:%S") + request.args.get("filename", "Photo_MBAM")
+    #filename = datetime.now().strftime("%Y-%m-%d %H:%M:%S") + request.args.get("filename", "Photo_MBAM")
+    filename = request.args.get("filename", "Photo_MBAM.jpeg")
 
     # Logs
     print(f"🔍 Receiving chunk {part}/{total} for file {filename}")
@@ -29,13 +30,15 @@ def upload_chunk():
 
     print(f"✅ Chunk {part}/{total} reçu ({len(request.data)} bytes)")
     if part == total:
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        new_filename = f"{timestamp}_{filename}"
+        new_filepath = os.path.join(UPLOAD_FOLDER, new_filename)
+        os.rename(filepath, new_filepath)
+        
         print(f"🎉 Fichier complet reconstitué : {filename}")
+        
 
     return "OK\n"
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    app.run(host="0.0.0.0", port=port)
 
 
 @app.route("/files")
@@ -46,3 +49,11 @@ def list_files():
 @app.route("/uploads/<path:filename>")
 def download_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
+
+
+
