@@ -44,8 +44,38 @@ def upload_chunk():
 
 @app.route("/files")
 def list_files():
-    files = os.listdir(UPLOAD_FOLDER)
-    return "<br>".join([f'<a href="/uploads/{f}">{f}</a>' for f in files])
+    files = [f for f in os.listdir(UPLOAD_FOLDER) if f.lower().endswith((".jpg", ".jpeg", ".png"))]
+    html = """
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Galerie d’images</title>
+        <style>
+            body { font-family: sans-serif; background: #fafafa; margin: 40px; }
+            h1 { text-align: center; }
+            .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+            .card { background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); padding: 10px; text-align: center; }
+            img { width: 100%; border-radius: 6px; }
+            a { text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 5px; }
+        </style>
+    </head>
+    <body>
+        <h1>📸 Galerie d’images reçues</h1>
+        <div class="grid">
+            {% for f in files %}
+            <div class="card">
+                <a href="/uploads/{{ f }}" target="_blank">
+                    <img src="/uploads/{{ f }}" alt="{{ f }}">
+                    {{ f }}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+    </html>
+    """
+    return render_template_string(html, files=files)
 
 @app.route("/uploads/<path:filename>")
 def download_file(filename):
