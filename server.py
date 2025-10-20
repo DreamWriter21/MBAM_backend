@@ -8,11 +8,13 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route("/upload", methods=["POST"])
+
 def upload_chunk():
     part = int(request.args.get("part", 1))
     total = int(request.args.get("total", 1))
     filename = request.args.get("filename", datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ".jpg")
-    
+
+    # Logs
     print(f"🔍 Receiving chunk {part}/{total} for file {file_name}")
     print(f"🔍 Chunk size: {len(request.data)} bytes")
     print(f"🔍 Total size: {total} chunks")
